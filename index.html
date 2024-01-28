@@ -7,11 +7,12 @@
     <title>Return to Office Calculator</title>
   </head>
   <body>
-    <script type="module" src="/main.js"></script>
+    <script type="module" src="./main.js"></script>
     <div id="app">
       <ui5-title>Return to Office Calculator</ui5-title>
       <p>Calculate the personal costs of your company's Return to Office policy.</p>
-      <p>Developed by Sebastian Wolf</p>
+      <p>Based on the assumed costs of your lost spare time due to commuting and real additional costs that you need to spend to make the return to office work.</p>
+      <p>Developed by Sebastian Wolf, using <a href="https://sap.github.io/ui5-webcomponents/">UI5 Web Components</a></p>
       <ui5-title level="H3">Basic Information</ui5-title>
       <p>
         <ui5-label for="mandateDaysSlider" show-colon>Return to Office mandate in days per week</ui5-label>
@@ -25,9 +26,26 @@
         <ui5-label for="commutingTimeSlider" show-colon>Your commuting time to office in minutes (one-way)</ui5-label>
         <ui5-slider id="commutingTimeSlider" value="30" min="0" max="120" step="5" show-tickmarks label-interval="2" show-tooltip></ui5-slider>
       </p>
-      <p><ui5-label required show-colon for="annualSalaryInput">Salary per year</ui5-label>
-      <ui5-input id="annualSalaryInput" placeholder="Enter your salary per year" required type="Number"></ui5-input></p>
-      <p id="resultText">Please complete the missing input fields to calculate the costs.</p>
+      <p>
+        <ui5-label for="travelDistanceSlider" show-colon>Your distance to office in km (one-way)</ui5-label>
+        <ui5-slider id="travelDistanceSlider" value="20" min="0" max="150" step="1" show-tickmarks label-interval="10" show-tooltip></ui5-slider>
+      </p>
+      <p>
+        <ui5-checkbox id="costsPerRideCheckbox" checked text="Calculate additional real costs per ride (no company car, no flat-rate ticket), simplified 0.20€/km"></ui5-checkbox>
+      </p>
+      <p>
+        <ui5-label required show-colon for="annualSalaryInput">Salary per year in €</ui5-label>
+        <ui5-input id="annualSalaryInput" placeholder="Enter your salary per year" required type="Number"></ui5-input>
+      </p>
+      <p>
+        <ui5-label required show-colon for="additionalCostsInput">Additional costs per month in € (e.g. daycare, car lease, flat-rate ticket etc.)</ui5-label>
+        <ui5-input id="additionalCostsInput" placeholder="Enter additional costs per month" required type="Number"></ui5-input>
+      </p>
+      <p>
+        <ui5-message-strip id="resultText" design="Information" hide-close-button>
+          Please complete the missing input fields to calculate the costs.
+        </ui5-message-strip>
+      </p>
     </div>
   </body>
 </html>
