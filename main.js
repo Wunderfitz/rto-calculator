@@ -46,10 +46,14 @@ function calculateCosts() {
         resultText.innerText = "OK, no changes for you, right?";
         return;
     }
+    // 230 working days per year, 8 hours per day
     const salaryPerHour = annualSalary / 230 / 8; // TODO: make configurable
-    const commutingCostPerDay = commutingTimeSlider.value / 60 * 2 * salaryPerHour;
-    const costsPerRide = costsPerRideCheckbox.checked ? travelDistanceSlider.value * 0.2 : 0; // Very simplified, TODO: make configurable
-    const annualCosts = Math.round(((costsPerRide * 2 + commutingCostPerDay) * (mandateDaysSlider.value - personalDaysSlider.value) * 52 + (costsPerMonth * 12 )) / 100) * 100;
+    // Calculated by hour (divided by 60) - and you need two rides per day
+    const spareTimeCostPerDay = commutingTimeSlider.value / 60 * 2 * salaryPerHour;
+    // Is 0.20 cents per km realistic (including the tax deduction for commuting)? No idea... 2 rides per day, therefore multiplied by 2
+    const costsPerRide = costsPerRideCheckbox.checked ? travelDistanceSlider.value * 0.2 * 2 : 0; // Very simplified, TODO: make configurable
+    // Real costs need to multiplied by 2 because of German taxes and social security payments
+    const annualCosts = Math.round(((costsPerRide * 2 + spareTimeCostPerDay) * (mandateDaysSlider.value - personalDaysSlider.value) * 52 + (costsPerMonth * 2 * 12 )) / 100) * 100;
     
     const raiseRequired = Math.round(annualCosts / annualSalary * 10000) / 100;
     if (annualCosts <= 0) {
